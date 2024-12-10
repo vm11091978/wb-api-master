@@ -1,0 +1,15 @@
+DirectoryIndex /public/index.php
+RewriteEngine On
+
+Options All -Indexes
+# RewriteBase /
+
+# 301 --- http://www.lekstyle.loc => https://lekstyle.loc
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+RewriteCond %{HTTPS} =off 
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
+
+# переопределить корень сайта
+RewriteRule ^(.*)$ public/$1 [L]
